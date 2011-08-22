@@ -7,7 +7,7 @@ Complete documentation at http://www.jnathanson.com/blog/client/jquery/heatcolor
 (function($){
 	$.fn.heatcolor = function( valueFunction, options ) {
 		var settings = {
-						elementFunction : function() { return jQuery(this); },
+						elementFunction : function() { return $(this); },
 						minval : 0,
 						maxval : 0,
 						lightness : 0.75,
@@ -73,7 +73,7 @@ Complete documentation at http://www.jnathanson.com/blog/client/jquery/heatcolor
 				
 				var vals = [];
 				els.each(function() {
-					vals.push( valueFunction.apply( jQuery(this) ) );
+					vals.push( valueFunction.apply( $(this) ) );
 				});			
 				vals = vals.sort( function(a,b) { return a - b; } );
 				settings.maxval = !settings.reverseOrder
@@ -87,7 +87,7 @@ Complete documentation at http://www.jnathanson.com/blog/client/jquery/heatcolor
 		}; // close helper functions
 		
 		if ( !settings.minval && !settings.maxval )
-			helpers.setMaxAndMin( jQuery(this) );
+			helpers.setMaxAndMin( $(this) );
 		else
 			if ( settings.reverseOrder ) {
 				var temp = settings.minval;
