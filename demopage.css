@@ -1,0 +1,82 @@
+/* CSS Document */
+
+body {
+font-family:"Trebuchet", "Lucida Sans", Courier;
+font-size:12px;
+}
+
+.thickline {
+border-top:4px solid #FFcc00;
+width:100%;
+}
+
+.thinline {
+border-top:1px solid #FFcc00;
+width:100%;
+}
+
+a {
+text-decoration:none;
+}
+
+a:hover {
+color: #ffcc00;
+}
+
+h1 {
+font-size:24px;
+}
+
+h2 {
+font-size:20px;
+}
+
+h3 {
+font-size: 16px;
+}
+
+.big {
+font-size: 14px;
+font-weight: bold;
+}
+
+input {
+font-size: 16px;
+background-color:#ffcc00;
+border:1px solid blue;
+}
+
+.red {
+color:#ee0000;
+}
+/*
+.box {
+background-color:#ffcc00;
+border:1px solid #000;
+display: none;
+padding: 6px;
+}
+*/
+
+.code {
+	font-family: "courier new",courier,monospace;
+	font-size: 11px;
+	color: black;
+	border: 1px solid #0000cc;
+	background-color: #ffffdd;
+	overflow: auto;
+	max-height: 200px;
+	width: 450px;
+    padding: 4px 4px 4px 4px;
+    line-height: 15px;
+	margin:5px 0 5px 0;	
+}
+
+.littlebox {
+width:8px;
+height:8px;
+float:left;
+background-color:#cccccc;
+border:1px solid #999999;
+margin:1px;
+}
