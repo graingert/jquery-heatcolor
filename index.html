@@ -1,77 +1,856 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta charset='utf-8'>
-
-  <title>graingert/jquery-heatcolor @ GitHub</title>
-
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #26c7ce;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #d93831; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #d93831; }
-    h3 { text-align: center; color: #d93831; }
-    a { color: #d93831; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>HeatColor, a jQuery plugin</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://autobahn.tablesorter.com/jquery.tablesorter.min.js" type="text/javascript"></script>
+<script src="https://github.com/graingert/jquery-heatcolor/raw/master/jquery.heatcolor.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+// example 1
+if (!($.browser.msie && $.browser.version == 6.0))
+$("#ex1").tablesorter();
+function sortwithcolor( column ) {
+$("#ex1 > tbody > tr").heatcolor(
+function() { return $("td:nth-child(" + column + ")", this).text(); }
+);
+};
+$("th").click(function() {
+$(this)
+.siblings()
+.css("background-color","#cccccc")
+.end()
+.css("background-color","#dd0000");
+sortwithcolor( $(this).parent().children().index( this ) + 1 );
+});
+sortwithcolor(8);
+// example 2
+for (i=1;i<6;i++) {
+$("#tenpoint").append("<div class='row' id='row" + i + "' />");
+for(j=1;j<=12-2*i;j++) {
+$("#row" + i).append("<div class='littlebox' />");
+}
+$("#row" + i).append("<div style='clear:both'>");
+}
+$("div.row").each(function() {
+$("div", this).heatcolor(
+function() {
+return $(this).parent().children().index( this[0] ) + 1;
+},
+{ maxval: 10,
+minval: 1,
+colorStyle: 'greentored',
+lightness: 0.3 }
+);
+});
+// example 3
+$("#ex3 li").heatcolor(
+function() { return $(this).attr("value"); },
+{
+lightness: 0.3,
+colorStyle: 'greentored'
+}
+);
+// example 4
+$("#ex4 div").heatcolor(
+function() { return $(this).text(); },
+{ lightness: 0,
+reverseOrder: true,
+colorStyle: 'greentored',
+maxval : 15,
+minval : 1
+}
+);
+});
+</script>
+<style>
+.box {
+padding:4px;
+width: 50px;
+font-size:12px;
+float:left;
+}
+</style>
+<link href="../demopage.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
-  <a href="http://github.com/graingert/jquery-heatcolor"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/graingert/jquery-heatcolor/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/graingert/jquery-heatcolor/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/graingert/jquery-heatcolor">jquery-heatcolor</a>
-      <span class="small">by <a href="http://github.com/graingert">graingert</a></span></h1>
-
-    <div class="description">
-      
-    </div>
-
-    <h2>Authors</h2>
-<p>Thomas Grainger (tagrain@gmail.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p> (tagrain@gmail.com)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/graingert/jquery-heatcolor/zipball/master">zip</a> or
-      <a href="http://github.com/graingert/jquery-heatcolor/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/graingert/jquery-heatcolor</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/graingert/jquery-heatcolor">graingert/jquery-heatcolor</a>
-    </div>
-
-  </div>
-
-  
+<div align="right">
+<a href="../index.cfm">jQuery Plugins Home </a>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" style="display:inline">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="josh@oakcitygraphics.com">
+<input type="hidden" name="item_name" value="jQuery plugins">
+<input type="hidden" name="no_shipping" value="0">
+<input type="hidden" name="no_note" value="1">
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="tax" value="0">
+<input type="hidden" name="lc" value="US">
+<input type="hidden" name="bn" value="PP-DonationsBF">
+<input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but04.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+</div>
+<div class="thinline"></div>
+<h1>HeatColor, a jQuery plugin</h1>
+<div class="thinline"></div>
+<table width="100%" border="0" cellpadding="1" cellspacing="0">
+<tr>
+<td><p><a href="#what">What is it?</a><br>
+<a href="#examples">Examples</a><br>
+<a href="#download">Download</a><br>
+<a href="#usage">Usage Specs</a><br>
+<a href="#hist">History</a><br>
+<a href="#cont">Contact</a><br>
+</p></td>
+<td>&nbsp;</td>
+<td align="right" valign="top">&nbsp;</td>
+</tr>
+</table>
+<a name="what"></a>
+<div class="thinline"></div>
+<h3>What is it?</h3>
+<p>HeatColor is a plugin that allows you to assign colors to elements, based on a value derived from that element.&nbsp; The derived value is compared to a range of values, either determined automatically or passed in, and the element is assigned a "heat" color based on its derived value's position within the range.</p>
+<p>You bind a collection of elements such as table rows, divs or list members to heatcolor and let it do the work.</p>
+<p>It can find the min and max values of the desired elements, or you can pass them in manually. </p>
+<a name="examples"></a>
+<div class="thinline"></div>
+<h3>Examples</h3>
+<p>Each example is followed by the code used in the example. </p>
+<p><strong>Example 1:</strong> Passing in table rows, used in conjunction with the tablesorter plugin. <br>
+Click on a column heading to resort. Loads up sorted on HR column. <br>
+Note: tablesorter doesn't appear to work in IE6, so IE6 will give some funky results. </p>
+<table width="620" cellspacing="1" cellpadding="2" border="0" id="ex1">
+<thead>
+<tr>
+<th bgcolor="#cccccc" align="center" class="textSm primary">
+Player
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+G</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+AB</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+R</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+H</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+2B</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+3B</b>
+</th>
+<th width="24" align="center" nowrap="nowrap" bgcolor="#cccccc" class="textSm primary">
+HR	</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+RBI</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+TB</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+BB</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+SO</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+SB</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+CS</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+OBP</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+SLG</b>
+</th>
+<th width="24" nowrap="nowrap" bgcolor="#cccccc" align="center" class="textSm primary"><b>
+AVG</b>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">A Rodriguez</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">158</td>
+<td align="center">583</td>
+<td align="center">143</td>
+<td align="center">183</td>
+<td align="center">31</td>
+<td align="center">0</td>
+<td align="center">54</td>
+<td align="center">156</td>
+<td align="center">376</td>
+<td align="center">95</td>
+<td align="center">120</td>
+<td align="center">24</td>
+<td align="center">4</td>
+<td align="center">.422</td>
+<td align="center">.645</td>
+<td align="center">.314</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">C Pena</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">148</td>
+<td align="center">490</td>
+<td align="center">99</td>
+<td align="center">138</td>
+<td align="center">29</td>
+<td align="center">1</td>
+<td align="center">46</td>
+<td align="center">121</td>
+<td align="center">307</td>
+<td align="center">103</td>
+<td align="center">142</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">.411</td>
+<td align="center">.627</td>
+<td align="center">.282</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">D Ortiz</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">149</td>
+<td align="center">549</td>
+<td align="center">116</td>
+<td align="center">182</td>
+<td align="center">52</td>
+<td align="center">1</td>
+<td align="center">35</td>
+<td align="center">117</td>
+<td align="center">341</td>
+<td align="center">111</td>
+<td align="center">103</td>
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">.445</td>
+<td align="center">.621</td>
+<td align="center">.332</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">J Thome</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">130</td>
+<td align="center">432</td>
+<td align="center">79</td>
+<td align="center">119</td>
+<td align="center">19</td>
+<td align="center">0</td>
+<td align="center">35</td>
+<td align="center">96</td>
+<td align="center">243</td>
+<td align="center">95</td>
+<td align="center">134</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">.410</td>
+<td align="center">.563</td>
+<td align="center">.275</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">P Konerko</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">151</td>
+<td align="center">549</td>
+<td align="center">71</td>
+<td align="center">142</td>
+<td align="center">34</td>
+<td align="center">0</td>
+<td align="center">31</td>
+<td align="center">90</td>
+<td align="center">269</td>
+<td align="center">78</td>
+<td align="center">102</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">.351</td>
+<td align="center">.490</td>
+<td align="center">.259</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">J Morneau</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">157</td>
+<td align="center">590</td>
+<td align="center">84</td>
+<td align="center">160</td>
+<td align="center">31</td>
+<td align="center">3</td>
+<td align="center">31</td>
+<td align="center">111</td>
+<td align="center">290</td>
+<td align="center">64</td>
+<td align="center">91</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">.343</td>
+<td align="center">.492</td>
+<td align="center">.271</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">J Dye</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">138</td>
+<td align="center">508</td>
+<td align="center">68</td>
+<td align="center">129</td>
+<td align="center">34</td>
+<td align="center">0</td>
+<td align="center">28</td>
+<td align="center">78</td>
+<td align="center">247</td>
+<td align="center">45</td>
+<td align="center">107</td>
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">.317</td>
+<td align="center">.486</td>
+<td align="center">.254</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">T Hunter</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">160</td>
+<td align="center">600</td>
+<td align="center">94</td>
+<td align="center">172</td>
+<td align="center">45</td>
+<td align="center">1</td>
+<td align="center">28</td>
+<td align="center">107</td>
+<td align="center">303</td>
+<td align="center">40</td>
+<td align="center">101</td>
+<td align="center">18</td>
+<td align="center">9</td>
+<td align="center">.334</td>
+<td align="center">.505</td>
+<td align="center">.287</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">M Ordonez</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">157</td>
+<td align="center">595</td>
+<td align="center">117</td>
+<td align="center">216</td>
+<td align="center">54</td>
+<td align="center">0</td>
+<td align="center">28</td>
+<td align="center">139</td>
+<td align="center">354</td>
+<td align="center">76</td>
+<td align="center">79</td>
+<td align="center">4</td>
+<td align="center">1</td>
+<td align="center">.434</td>
+<td align="center">.595</td>
+<td align="center">.363</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">V Guerrero</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">150</td>
+<td align="center">574</td>
+<td align="center">89</td>
+<td align="center">186</td>
+<td align="center">45</td>
+<td align="center">1</td>
+<td align="center">27</td>
+<td align="center">125</td>
+<td align="center">314</td>
+<td align="center">71</td>
+<td align="center">62</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">.403</td>
+<td align="center">.547</td>
+<td align="center">.324</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">A Beltre</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">149</td>
+<td align="center">595</td>
+<td align="center">87</td>
+<td align="center">164</td>
+<td align="center">41</td>
+<td align="center">2</td>
+<td align="center">26</td>
+<td align="center">99</td>
+<td align="center">287</td>
+<td align="center">38</td>
+<td align="center">104</td>
+<td align="center">14</td>
+<td align="center">2</td>
+<td align="center">.319</td>
+<td align="center">.482</td>
+<td align="center">.276</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">J Cust</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">124</td>
+<td align="center">395</td>
+<td align="center">61</td>
+<td align="center">101</td>
+<td align="center">18</td>
+<td align="center">1</td>
+<td align="center">26</td>
+<td align="center">82</td>
+<td align="center">199</td>
+<td align="center">105</td>
+<td align="center">164</td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">.408</td>
+<td align="center">.504</td>
+<td align="center">.256</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">F Thomas</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">155</td>
+<td align="center">531</td>
+<td align="center">63</td>
+<td align="center">147</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">26</td>
+<td align="center">95</td>
+<td align="center">255</td>
+<td align="center">81</td>
+<td align="center">94</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">.377</td>
+<td align="center">.480</td>
+<td align="center">.277</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">V Martinez</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">147</td>
+<td align="center">562</td>
+<td align="center">78</td>
+<td align="center">169</td>
+<td align="center">40</td>
+<td align="center">0</td>
+<td align="center">25</td>
+<td align="center">114</td>
+<td align="center">284</td>
+<td align="center">62</td>
+<td align="center">76</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">.374</td>
+<td align="center">.505</td>
+<td align="center">.301</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">H Matsui</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">143</td>
+<td align="center">547</td>
+<td align="center">100</td>
+<td align="center">156</td>
+<td align="center">28</td>
+<td align="center">4</td>
+<td align="center">25</td>
+<td align="center">103</td>
+<td align="center">267</td>
+<td align="center">73</td>
+<td align="center">73</td>
+<td align="center">4</td>
+<td align="center">2</td>
+<td align="center">.367</td>
+<td align="center">.488</td>
+<td align="center">.285</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">G Sheffield</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">133</td>
+<td align="center">494</td>
+<td align="center">107</td>
+<td align="center">131</td>
+<td align="center">20</td>
+<td align="center">1</td>
+<td align="center">25</td>
+<td align="center">75</td>
+<td align="center">228</td>
+<td align="center">84</td>
+<td align="center">71</td>
+<td align="center">22</td>
+<td align="center">5</td>
+<td align="center">.378</td>
+<td align="center">.462</td>
+<td align="center">.265</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">T Hafner</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">152</td>
+<td align="center">545</td>
+<td align="center">80</td>
+<td align="center">145</td>
+<td align="center">25</td>
+<td align="center">2</td>
+<td align="center">24</td>
+<td align="center">100</td>
+<td align="center">246</td>
+<td align="center">102</td>
+<td align="center">115</td>
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">.385</td>
+<td align="center">.451</td>
+<td align="center">.266</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">A Rios</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">161</td>
+<td align="center">643</td>
+<td align="center">114</td>
+<td align="center">191</td>
+<td align="center">43</td>
+<td align="center">7</td>
+<td align="center">24</td>
+<td align="center">85</td>
+<td align="center">320</td>
+<td align="center">55</td>
+<td align="center">103</td>
+<td align="center">17</td>
+<td align="center">4</td>
+<td align="center">.354</td>
+<td align="center">.498</td>
+<td align="center">.297</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">G Sizemore</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">162</td>
+<td align="center">628</td>
+<td align="center">118</td>
+<td align="center">174</td>
+<td align="center">34</td>
+<td align="center">5</td>
+<td align="center">24</td>
+<td align="center">78</td>
+<td align="center">290</td>
+<td align="center">101</td>
+<td align="center">155</td>
+<td align="center">33</td>
+<td align="center">10</td>
+<td align="center">.390</td>
+<td align="center">.462</td>
+<td align="center">.277</td>
+</tr>
+<tr>
+<td>
+<table cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td nowrap="" align="left">B Upton</td>
+</tr>
+</tbody></table>
+</td>
+<td align="center">129</td>
+<td align="center">474</td>
+<td align="center">86</td>
+<td align="center">142</td>
+<td align="center">25</td>
+<td align="center">1</td>
+<td align="center">24</td>
+<td align="center">82</td>
+<td align="center">241</td>
+<td align="center">65</td>
+<td align="center">154</td>
+<td align="center">22</td>
+<td align="center">8</td>
+<td align="center">.386</td>
+<td align="center">.508</td>
+<td align="center">.300</td>
+</tr>
+</tbody></table>
+<pre class="code">
+$("#ex1").tablesorter();
+function sortwithcolor( column ) {
+$("#ex1 > tbody > tr").heatcolor(
+function() { return $("td:nth-child(" + column + ")", this).text(); }
+);
+};
+$("th").click(function() {
+$(this).siblings().css("background-color","#cccccc").end().css("background-color","#dd0000");
+sortwithcolor( $(this).parent().children().index( this ) + 1 );
+});
+sortwithcolor(8);
+</pre>
+<br>
+<br>
+<p><strong>Example 2:</strong> 10-point rating system </p>
+<div id="tenpoint">
+</div>
+<pre class="code">
+$(&quot;div.row&quot;).each(function() {
+$(&quot;div&quot;, this).heatcolor(
+function() {
+return $(this).parent().children().index( this[0] ) + 1;
+},
+{ maxval: 10,
+minval: 1,
+colorStyle: &#39;greentored&#39;,
+lightness: 0.3 }
+);
+});
+</pre>
+<p><strong>Example 3:</strong> Using list elements - using value attribute of list elements, green to red color style </p>
+<p>
+How much do you love cotton candy?
+<ul style="width:300px" id="ex3">
+<li value="60">Not at all: 60%</li>
+<li value="30">A little: 30%</li>
+<li value="8">Some: 8%</li>
+<li value="2">A lot: 2%</li>
+</ul>
+<pre class="code">
+$("#ex2 li").heatcolor(
+function() {
+// 'this' will refer to current li element
+return $(this).attr("value"); },
+{
+lightness: 0.3,
+colorStyle: 'greentored'
+}
+);
+</pre>
+<br>
+<br>
+<p><strong>Example 4:</strong> Divs, using reverse order (normally highest would be green, lowest red when using greentored colorstyle)<br>
+Also uses maxval and minval passed in rather than calculated </p>
+<div id="ex4">
+<div class="box">1</div>
+<div class="box">2</div>
+<div class="box">3</div>
+<div class="box">6</div>
+<div class="box">14</div>
+</div>
+<br><br>
+<pre class="code">
+$("#ex3 div").heatcolor(
+function() { return $(this).text(); },
+{	lightness: 0,
+colorStyle: 'greentored',
+maxval: 15,
+minval: 1,
+reverseOrder: true
+}
+);
+</pre>
+<br>
+<a name="download"></a>
+<div class="thinline"></div>
+<h3>Download</h3>
+<p><a href="https://github.com/graingert/jquery-heatcolor/raw/master/jquery.heatcolor.js">Download jquery.heatcolor.0.0.1.js</a><br>
+</p>
+<a name="usage"></a>
+<div class="thinline"></div>
+<h3>Usage</h3>
+<p><strong>$(&quot;selector&quot;).heatcolor( valueFunction[function], options[map] ); </strong></p>
+<table border="0" cellpadding="5" cellspacing="1">
+<tr valign="top" bgcolor="#cccccc">
+<td><strong>param</strong></td>
+<td><strong>type</strong></td>
+<td><strong>required?</strong></td>
+<td><strong>default</strong></td>
+<td><strong>description</strong></td>
+<td><strong>example</strong></td>
+</tr>
+<tr valign="top" bgcolor="#f2f2f2">
+<td><strong>valueFunction</strong></td>
+<td>function</td>
+<td>yes</td>
+<td>--</td>
+<td>Function to return the value to be evaluated within a range. Looks within context of currently iterating element. </td>
+<td>function() { return $(&quot;td:nth-child(10)&quot;,this).text(); } // would return text of 10th column of current row, if table rows passed in </td>
+</tr>
+<tr valign="top" bgcolor="#eaeaea">
+<td><strong>options</strong></td>
+<td>map</td>
+<td>no</td>
+<td colspan="3">Set optional parameters<br>
+<table border="0" cellspacing="1" cellpadding="2">
+<tr valign="top" bgcolor="#cccccc">
+<td>param</td>
+<td>type</td>
+<td>default</td>
+<td>description</td>
+<td>example</td>
+</tr>
+<tr valign="top">
+<td><strong>elementFunction</strong></td>
+<td>Function</td>
+<td><p>{ return $(this);<br>
+}
+</p>
+</td>
+<td>return element to color </td>
+<td>function() { return $(&quot;td:nth-child(1)&quot;) } // would return first td in row if rows passed in </td>
+</tr>
+<tr valign="top">
+<td><strong>maxval</strong></td>
+<td>Number</td>
+<td>null</td>
+<td>Maximum value in range - if not passed in, will be calculated automatically </td>
+<td>100</td>
+</tr>
+<tr valign="top">
+<td><strong>minval</strong></td>
+<td>Number</td>
+<td>null</td>
+<td>Minimum value in range - if not passed in, will be calculated automatically </td>
+<td>1</td>
+</tr>
+<tr valign="top">
+<td><strong>lightness</strong></td>
+<td>Number between 0 and 0.9 </td>
+<td>0.75</td>
+<td>sets lightness of color-<br>
+0 is darkest, 0.9 is lightest </td>
+<td>0.6</td>
+</tr>
+<tr valign="top">
+<td><strong>colorStyle</strong></td>
+<td>String</td>
+<td>'roygbiv'</td>
+<td>style of coloring - possible values 'roygbiv' or 'greentored' </td>
+<td>'greentored'</td>
+</tr>
+<tr valign="top">
+<td><strong>reverseOrder</strong></td>
+<td>Boolean</td>
+<td>false</td>
+<td>By default the values will be colored highest to lowest; set this to true to color lowest to highest </td>
+<td>true</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<a name="hist"></a>
+<div class="thinline"></div>
+<h3>History</h3>
+<p>Version 0.0.1 released November 29, 2007
+</p><br>
+<a name="cont"></a>
+<div class="thinline"></div>
+<h3>Contact</h3>
+<p>Questions, comments? joshnathanson at gmail dot com</p>
 </body>
 </html>
