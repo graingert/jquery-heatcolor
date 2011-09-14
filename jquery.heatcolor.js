@@ -12,7 +12,8 @@ Complete documentation at http://www.jnathanson.com/blog/client/jquery/heatcolor
 						maxval : 0,
 						lightness : 0.75,
 						colorStyle : 'roygbiv',
-						reverseOrder : false
+						reverseOrder : false,
+						balance : false
 		};
 		
 		if( options ) {
@@ -81,7 +82,18 @@ Complete documentation at http://www.jnathanson.com/blog/client/jquery/heatcolor
 									: vals[0]; 
 				settings.minval = !settings.reverseOrder
 									? vals[0]
-									: vals[vals.length-1]; 
+									: vals[vals.length-1];
+
+				if (settings.balence == true){
+					var sum = 0.0
+					for (key in array) {
+						sum += (array[key] * 1.0);
+					}
+					var avg = sum/vals.length
+					maxdifference = Math.max(Math.abs(avg-settings.maxval),Math.abs(avg-settings.minval))
+					settings.maxval = avg+maxdifference
+					settings.minval = avg-maxdifference
+				}
 			}
 			
 		}; // close helper functions
@@ -151,3 +163,4 @@ Complete documentation at http://www.jnathanson.com/blog/client/jquery/heatcolor
 |                                                                       |
 +-----------------------------------------------------------------------+
 */
+
